@@ -1,0 +1,10 @@
+html, body {
+    margin: 0;
+}
+
+#canvas1, #canvas2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+}
