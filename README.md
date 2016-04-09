@@ -1,7 +1,7 @@
-canvasSample
+# canvasSample
 
-===
+### HTML Canvasのサンプル
 
-HTML Canvasのサンプル
-
-ドットがランダムに移動
+ページ      | 内容
+------------|---------------
+index.html  | ドットがランダムに移動

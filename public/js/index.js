@@ -4,18 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ドット作成 */
     const dot_list = [];
-    for(let i = 0; i < 10000; i++) {
-        dot_list.push(new Dot(ctx, 300));
+    for(let i = 0; i < 100; i++) {
+        dot_list.push(new Dot(ctx, 800));
     }
 
     /* レンダリングループ */
     setInterval(() => {
         ctx.fillStyle = '#fff';
-        ctx.fillRect(0, 0, 300, 300);
+        ctx.fillRect(0, 0, 800, 800);
         for(dot of dot_list) {
             dot.move();
         }
-    }, 50);
+    }, 10);
 });
 
 class Dot {
@@ -25,12 +25,43 @@ class Dot {
         this.y = rand(max - 2);
         this.color = '#' + rand0F() + rand0F() + rand0F();
         this.ctx = ctx;
+        this.conpus(3);
     }
 
     move() {
         this.ctx.fillStyle = this.color;
-        this.shake(3);
-        this.ctx.fillRect(this.x, this.y, 1, 1);
+        // this.shake(3);
+        this.change_d(3);
+        this.gonext();
+        this.ctx.fillRect(this.x, this.y, 10, 10);
+    }
+
+    conpus(step) {
+        this.x_d = (rand(step) - Math.floor(step/2));
+        this.y_d = (rand(step) - Math.floor(step/2));
+        if(!(this.x_d || this.y_d)) {
+            this.conpus(step);
+        }
+    }
+
+    gonext() {
+        this.x += this.x_d + this.max;
+        this.x %= this.max;
+        this.y += this.y_d + this.max;
+        this.y %= this.max;
+    }
+
+    change_d(step) {
+        this.x_d += rand(step) - Math.floor(step/2);
+        this.y_d += rand(step) - Math.floor(step/2);
+        if(Math.abs(this.x_d) > step) {
+            this.x_d /= Math.abs(this.x_d);
+            this.x_d *= step;
+        }
+        if(Math.abs(this.y_d) > step) {
+            this.y_d /= Math.abs(this.y_d);
+            this.y_d *= step;
+        }
     }
 
     shake(step) {
